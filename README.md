@@ -26,7 +26,32 @@ Now that i had splunk installed and the dataset downloaded in the correct place 
 <img width="1511" height="939" alt="image" src="https://github.com/user-attachments/assets/803f7fa0-125a-4dd4-baad-bbfe95249206" />
 <img width="1529" height="944" alt="image" src="https://github.com/user-attachments/assets/4e94b4e3-23ec-436d-b40f-e5762be7b7f0" />
 The reason i chose Splunk as my SIEM platform of choice for this investigation is that it is a very commonly used SIEM platform used by enterprises across the globe, it also works across a large number of source types, allowing analysts to perform event correlation across a large number of source types to properly understand an incident and find its causes. Splunk also allows for the creation of alerts using different fields like the MFAUsed field. The choice to use linux for this investigation also fits well into SOC infrastructure as it is commonly used in real world SOC operations as it can be highly tailored to specific security tasks and is required for some of the more specialzed tools used with SOC operations.
+# Guided Answers to BOTSv3 Questions
+Q1: IAM users accessing AWS services
 
+There were a total of 6 Users within the dataset 2 being Admin accounts namely, web_admin and frothly_admin so they arent counted as the users leaving Bstoll, Btun, splunk_access, and mkraeus, these were found by looking at the values of the UserName field that the dataset contains.
+<img width="1502" height="925" alt="image" src="https://github.com/user-attachments/assets/a2459198-10de-4c06-9e44-c0d862a5c4a8" />
+This answer relates to SOC operations in that by having an easy method of tracking user names in splunk, it makes it easier to identify identity misuse as all actions are linked to an account.
 
+Q2:Detecting AWS API activity without MFA
 
+Within the dataset, there is a field that can be used to identify API activity that doesnt have MFA labelled "userIdentity.sessionContext.attributes.mfaAuthenticated", this field can be used to setup alerts that would trigger when this field is false. This answer is relevant in SOCs as it can be used to help alert to high-risk authentication behaviour, this field can be used in a splunk alert to alert analysts of this behaviour and the possible false positives can be reduced by excluding console logs
+<img width="777" height="485" alt="image" src="https://github.com/user-attachments/assets/77d966a7-fc2c-42f9-b547-0bccb6b8501c" />
+
+<img width="784" height="484" alt="image" src="https://github.com/user-attachments/assets/bb108777-59cf-4f21-b8bd-840b263cc183" />
+
+Q3:Processor Number on Web Servers
+
+The processor number for the web servers is E5-2676, the source type used to find this information is hardware source type. This answer is relevant for SOCs as it is a part of asset awareness and baseline monitoring, asset awareness is important especially as it allows for better decision making by identifying vulnerabilities that could affect overall security.
+<img width="778" height="481" alt="image" src="https://github.com/user-attachments/assets/f9548bbb-a1ef-47d1-b801-15b678bef2bf" />
+
+Q4: Event ID of call enabling public S3 access
+The event ID of the API call that enabled public access to the S3 bucket is "ab45689d-69cd-41e7-8705-5350402cf7ac", to find this I made use of an SPL query that looked through the cloudtrail logs for events that contained API Calls. This answer is relevant to SOCs as it identifies the misconfiguration that lead to data exposure, making use of CloudTrail to provide forensic traceability and with the event IDs it allows, the event ID is a key factor in the investigation as it provides key information.
+
+<img width="776" height="520" alt="image" src="https://github.com/user-attachments/assets/bd01c44a-6f0b-4dfa-9cf6-f41abdc4d717" />
+
+Q5:Username of user who made the S3 Bucket public
+
+The name of the user who made the Bucket public is bstoll, this was found by looking further into the event that made the bucket public and contained the name of the user who did it, this answer is highly relevant to SOCs as it is extremely important to identify who caused the exposure for the purposes of attribution and accountability, and also supports escalation and remediation of the exposure.
+<img width="776" height="520" alt="image" src="https://github.com/user-attachments/assets/bd01c44a-6f0b-4dfa-9cf6-f41abdc4d717" />
 
