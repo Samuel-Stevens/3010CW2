@@ -14,4 +14,19 @@ The scope of the investigation is limited to the BOTSv3 dataset and the log sour
 # SOC Roles & Incident Handling Reflection
 In SOC operations tend to make use of a tiered structure to help manage various tasks such as alert triage, investigation, and escalation, Tier 1 analysts are responsible for continuous monitoring and initial alert triage/validation, Tier 2 is responsible for performing in-depth investigation of incidents and event correlation while tier 3 deals with threat hunting and detection engineering. The work done for the BOTSv3 investigation align closely with the work of a Tier 2 analyst due to its nature as a more in-depth investigation than a Tier 1 analyst would perform, using log analysis to determine who was the cause of the incident for the purpose of attribution and accountability and identifying misconfiguration of assets such as S3 buckets. This investigation aligns with standard incident handling practices such as the NIST lifecycle, this investigation focuses on the Detection and Analysis section, looking into the users of the system, looking for API calls that caused the incident and identifying the MFA field that could be used to produce alert which can then be escalated to tier 3 for use in future detection and prevention, this shows the importance of proper logging for proper incident detection and response
 
+# Installation and Data Preparation
+ For this investigation, i chose to run splunk through a ubuntu VM using VMware Pro, after installing linix I moved to downloading splunk to my machine using the tgz wget link on the site i downloaded it to my VM.
+ <img width="1099" height="512" alt="image" src="https://github.com/user-attachments/assets/2173691b-adb0-4f97-b89e-81575ccc0c5e" />
+After that I proceded to extract splunk to /opt.
+<img width="857" height="416" alt="image" src="https://github.com/user-attachments/assets/056a6b30-de29-43fd-9e0b-57581bc6f065" />
+After confirming that splunk was successfully downloaded and in the right area, i moved onto downloading the BOTSv3 dataset from the official GitHub page and once downloaded, extracting it then copying it to /opt/splunk/etc/apps/
+<img width="1508" height="928" alt="image" src="https://github.com/user-attachments/assets/69968bc1-fb0f-4cb1-bd4f-0d5f3b2a9e77" />
+<img width="1496" height="929" alt="image" src="https://github.com/user-attachments/assets/e2ea8e24-7828-4e06-8fd5-7b721ac54af5" />
+Now that i had splunk installed and the dataset downloaded in the correct place i set up the Splunk account i would be using, and then once the localhost started working, i searched the BOTSv3 data set with the following SPL query to ensure the correct number of records were present, to ensure that i had a proper installation of splunk and the dataset
+<img width="1511" height="939" alt="image" src="https://github.com/user-attachments/assets/803f7fa0-125a-4dd4-baad-bbfe95249206" />
+<img width="1529" height="944" alt="image" src="https://github.com/user-attachments/assets/4e94b4e3-23ec-436d-b40f-e5762be7b7f0" />
+The reason i chose Splunk as my SIEM platform of choice for this investigation is that it is a very commonly used SIEM platform used by enterprises across the globe, it also works across a large number of source types, allowing analysts to perform event correlation across a large number of source types to properly understand an incident and find its causes. Splunk also allows for the creation of alerts using different fields like the MFAUsed field. The choice to use linux for this investigation also fits well into SOC infrastructure as it is commonly used in real world SOC operations as it can be highly tailored to specific security tasks and is required for some of the more specialzed tools used with SOC operations.
+
+
+
 
