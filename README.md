@@ -46,6 +46,7 @@ The processor number for the web servers is E5-2676, the source type used to fin
 <img width="778" height="481" alt="image" src="https://github.com/user-attachments/assets/f9548bbb-a1ef-47d1-b801-15b678bef2bf" />
 
 Q4: Event ID of call enabling public S3 access
+
 The event ID of the API call that enabled public access to the S3 bucket is "ab45689d-69cd-41e7-8705-5350402cf7ac", to find this I made use of an SPL query that looked through the cloudtrail logs for events that contained API Calls. This answer is relevant to SOCs as it identifies the misconfiguration that lead to data exposure, making use of CloudTrail to provide forensic traceability and with the event IDs it allows, the event ID is a key factor in the investigation as it provides key information.
 
 <img width="776" height="520" alt="image" src="https://github.com/user-attachments/assets/bd01c44a-6f0b-4dfa-9cf6-f41abdc4d717" />
