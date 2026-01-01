@@ -86,4 +86,15 @@ This answer is relevant to SOCs as non standard configurations lead to a wider r
 <img width="779" height="460" alt="image" src="https://github.com/user-attachments/assets/7e54dd5b-685e-4680-9c5e-bc5a39269cd3" />
 
 # Conclusion
+To summarise the findings of the investigation, there were 4 IAM users within the BOTSv3 dataset, there were AWS API calls made without MFA, as well as a misconfigured S3 Bucket called frothlywebcode was made public by IAM user BSTOLL, and a .txt file was uploaded to bucket while exposed called "OPEN_BUCKET_PLEASE_FIX.txt" showing data interaction while it was publically accessable. 
+
+A key lesson i learnt from this investigation is the impact that comprehensive logging and visibility can have on an investigation making it significantly easier to find key information and root causes of incidents. 
+
+Another key lesson is that effective use of SIEM tooling can significantly enhance incident detection and investigation capabilites of a SOC, such as the use of alerts making it significantly easier to detect suspicious behaviour such as the lack of MFA usage found in this investigation. 
+
+With the threats detected in this shows a strong SOC strategy but it has areas that can improve as all strategies do, mainly focusing on detection and response. My first improvement would be implementing targeted alerts with an example of where this would work being the MFAUsed field from Q2, it could be set to trigger an alert when that registers as false outside of console logins to reduce false positives.  
+
+A second improvement that could be made after this is strengthening MFA requirements after this making it mandatory for accessing the AWS configs.  
+
+And a third and final improvement is the use of automated detection rules for S3 bucket misconfiguration such as making it public, creating alerts for this allows analysts to respond much quicker to possible exposures. 
 
